@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.GRATE
+  name: GRATE
+  version: 0.6.1.1
+  kind: app
+  description: |
+    1-D Simulation of Gravel Routing and Textural Evolution in Rivers
+
+command:
+  - /opt/apps/io.github.GRATE/files/bin/QT_Grate
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/GRATE.git
+    version: master
+    commit: 21f5ab9fb5835930504428554e42f3adc6876dfd
+
+build: |
+  cd /project/linglong/sources/GRATE.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
